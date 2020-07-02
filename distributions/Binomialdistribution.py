@@ -77,7 +77,8 @@ class Binomial(Distribution):
         # sum(self.data) equals the count of positive trials
         self.p = sum(self.data) / self.n
         self.calculate_mean()
-        self.calcculate_stdev()
+        self.calculate_stdev()
+        return self.p, self.n
 
     def plot_bar(self):
         """Function to output a bar chart of the instance variable data using
@@ -105,7 +106,9 @@ class Binomial(Distribution):
         Returns:
             float: probability density function output
         """
-        return math.comb(self.n, int(k)) * self.p**k * (1.0-self.p)**(self.n-k)
+        comb = (math.factorial(self.n) /
+                (math.factorial(self.n-k) * math.factorial(k)))
+        return comb * self.p**k * (1.0-self.p)**(self.n-k)
 
     def plot_bar_pdf(self):
         """Function to plot the pdf of the binomial distribution
